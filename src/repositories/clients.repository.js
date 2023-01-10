@@ -8,4 +8,12 @@ async function postClientRepository(name, address, phone){
     return result;
 }
 
-export { postClientRepository };
+async function getClientById(clientId){
+    const client = await connection.query(`
+        SELECT * FROM clients
+        WHERE id = $1
+    `, [clientId]);
+    return client.rows[0];
+}
+
+export { postClientRepository, getClientById };

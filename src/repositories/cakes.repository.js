@@ -15,4 +15,12 @@ async function createCakeRepository({name, price, image, description}) {
         );
 }
 
-export { nameExistsRepository, createCakeRepository };
+async function getCakeById(cakeId){
+    const cake = await connection.query(`
+        SELECT * FROM cakes
+        WHERE id = $1
+    `, [cakeId]);
+    return cake.rows[0];
+}
+
+export { nameExistsRepository, createCakeRepository, getCakeById };

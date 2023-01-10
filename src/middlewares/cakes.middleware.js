@@ -20,5 +20,14 @@ async function createCake(req, res, next) {
     }
 }
 
-export { createCake };
+async function getCakeById(cakeId){
+    const cake = await connection.query(`
+        SELECT * FROM cakes
+        WHERE id = $1
+    `, [cakeId]);
+
+    return cake.rows[0];
+}
+
+export { createCake, getCakeById};
 

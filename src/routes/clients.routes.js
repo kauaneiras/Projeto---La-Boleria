@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { postClientMiddleware } from "../middlewares/clients.middlewares.js";
+import { postClientMiddleware } from "../middlewares/clients.middleware.js";
 import { postClientController } from "../controllers/clients.controller.js";
 
 const clientsRoutes = Router();
