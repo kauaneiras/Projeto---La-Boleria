@@ -16,4 +16,26 @@ async function getClientById(clientId){
     return client.rows[0];
 }
 
-export { postClientRepository, getClientById };
+async function getOrdersByIdClient(clientId){
+    const orders = await connection.query(`
+        SELECT * FROM orders
+        WHERE "clientId" = $1
+    `, [clientId]);
+    const ordersWithCakeName = await Promise.all(orders.rows.map(async (order) => {
+        const cake = await connection.query(`
+            SELECT * FROM cakes
+            WHERE id = $1
+        `, [order.cakeId]);
+        return {
+            orderId: order.id,
+            quantity: order.quantity,
+            createdAt: order.createdAt,
+            totalPrice: order.totalPrice,
+            cakeName: cake.rows[0].name
+        }
+    }
+    ));
+    return ordersWithCakeName;
+}
+
+export { postClientRepository, getClientById, getOrdersByIdClient };
