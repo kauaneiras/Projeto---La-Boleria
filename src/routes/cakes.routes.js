@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { postCake } from "../controllers/cakes.controller";
-import { createCake } from "../middlewares/cakes.middleware";
+import { postCake } from "../controllers/cakes.controller.js";
+import { createCake } from "../middlewares/cakes.middleware.js";
 
 const cakesRoutes = Router();
 

@@ -1,18 +1,9 @@
-// {
-//     "name": "Bolo de pote",
-//     "price": 13.00,
-//      "image":"encurtador.com.br/iDIX0",
-//     "description": "Bolo de chocolate com recheio de leite ninho"
-// }
+import { createCakeRepository } from "../repositories/cakes.repository.js";
 
-async function postCake(){
+async function postCake(req, res){
     const {name, price, image, description} = req.body;
     try {
-        await connection.query(`
-        INSERT INTO cakes (name, price, image, description)
-        VALUES ($1, $2, $3, $4)
-        `, [name, price, image, description]
-        );
+        await createCakeRepository({name, price, image, description});
         return res.sendStatus(201);
 
     } catch (error) {

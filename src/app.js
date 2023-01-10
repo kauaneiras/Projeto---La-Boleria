@@ -1,22 +1,25 @@
 //import modules
 import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
+import dayjs from "dayjs";
 
 //import routes
-import cakesRoutes from "./routes/cakes.routes";
+import cakesRoutes from "./routes/cakes.routes.js";
+import clientsRoutes from "./routes/clients.routes.js";
 
 //APP
 const app = express();
-
-//app use modules
+app.use(express.json());
 app.use(cors());
 
-//app use routes
-app.use("/cakes", cakesRoutes);
+app.use(cakesRoutes);
+app.use(clientsRoutes);
 
-// app listen 
-const port = process.env.PORT || 5000;
-app.listen(port, () => {
-    console.log('Server is running on port ' + port);
-    }
-);
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(
+    `${dayjs().format("YYYY-MM-DD HH:mm:ss")} [Listening ON] Port: ${PORT}`
+  );
+});
