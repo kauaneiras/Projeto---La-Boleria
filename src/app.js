@@ -3,7 +3,7 @@ import express from "express";
 import cors from "cors";
 
 //import routes
-
+import cakesRoutes from "./routes/cakes.routes";
 
 //APP
 const app = express();
@@ -12,10 +12,7 @@ const app = express();
 app.use(cors());
 
 //app use routes
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-    }
-);
+app.use("/cakes", cakesRoutes);
 
 // app listen 
 const port = process.env.PORT || 5000;
