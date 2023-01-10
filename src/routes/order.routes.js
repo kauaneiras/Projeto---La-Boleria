@@ -6,5 +6,6 @@ const orderRoutes = Router();
 
 orderRoutes.post("/order", validateOrder, createOrderController);
 orderRoutes.get("/orders", checkOrders, getOrdersController );
+orderRoutes.get("/orders/:id", checkOrders, getOrdersController);
 
 export default orderRoutes;

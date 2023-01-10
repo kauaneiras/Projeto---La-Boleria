@@ -20,14 +20,20 @@ async function validateOrder(req, res, next) {
 
 async function checkOrders(req, res, next){
   const { date } = req.query; // formato da query: YYYY-MM-DD
+  const { id } = req.params;
   try{
-    if (date){
+    if (date && !id){
       const orders = await getOrdersByDate(date);
       if (orders.length === 0) {return res.status(404).send(orders);}
     } 
-    if (!date){
+    if (!date && !id){
       const orders = await getOrders();
       if (orders.length === 0) {return res.status(404).send(orders);}
+    }
+    if (!date && id){
+      const orders = await getOrders();
+      const order = orders.find(order => order.orderId === Number(id));
+      if(!order) {return res.sendStatus(404);}
     }
     next();
   }
@@ -35,5 +41,7 @@ async function checkOrders(req, res, next){
     return res.sendStatus(500);
   }
 }
+
+
 
 export { validateOrder, checkOrders };

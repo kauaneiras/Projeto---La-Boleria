@@ -68,4 +68,28 @@ async function getOrdersByDate(date){ // formato da query: YYYY-MM-DD
     return ordersWithClientAndCake;
 }
 
-export { createOrder, getOrdersByDate, getOrders };
+async function getOrderById(id){
+    const orderresult = await connection.query(`
+        SELECT * FROM orders WHERE id = $1;
+    `, [id]);
+    const order = orderresult.rows[0];
+    const clientresult = await connection.query(`
+        SELECT * FROM clients WHERE id = $1;
+    `, [order.clientId]);
+    const client = clientresult.rows[0];
+    const cakeresult = await connection.query(`
+        SELECT * FROM cakes WHERE id = $1;
+    `, [order.cakeId]);
+    const cake = cakeresult.rows[0];
+    const orderWithClientAndCake = {
+        client,
+        cake,
+        orderId: order.id,
+        createdAt: order.createdAt,
+        quantity: order.quantity,
+        totalPrice: order.totalPrice
+    }
+    return orderWithClientAndCake;
+}
+
+export { createOrder, getOrdersByDate, getOrders, getOrderById };
