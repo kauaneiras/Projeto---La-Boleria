@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS cakes (
+  "id" SERIAL PRIMARY KEY,
+  "name" VARCHAR(255) UNIQUE NOT NULL,
+  "price" NUMERIC(10,2) NOT NULL,
+  "image" VARCHAR(255) NOT NULL,
+  "description" TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS clients (
+    "id" SERIAL PRIMARY KEY,
+    "name" VARCHAR(255) NOT NULL,
+    "address" VARCHAR(255) NOT NULL,
+    "phone" VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS  orders (
+    "id" SERIAL PRIMARY KEY,
+    "clientId" INTEGER NOT NULL,
+    "cakeId" INTEGER NOT NULL,
+    "quantity" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP NOT NULL,
+    "totalPrice" NUMERIC(10,2) NOT NULL
+);
